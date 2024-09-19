@@ -1,0 +1,626 @@
+what is typescript
+--------------------
+
+. TS is an enhanced version of javascript
+. We could say superset of javascript
+. You can understand like c++ is an enhanced version of c language
+. Typescript is building on javascript
+. TS is not a new language. this is just add some new features in JS
+
+. but TS can not run on the browser directly
+. So what is the benefit of it ? if we can not run it on browser!
+. TS compiler convert the code from Typescript to javascript
+
+TYPESCRIPT BENEFIT
+-------------------
+
+. Check Error on Compile Time
+. Add type like string, number, bool etc
+. We can add Object-Oriented Way with TS
+. Code is well Managed
+
+VERSION AND HISTORY
+---------------------
+
+. Developed By Microsoft
+. First Released: 1 Oct 2012
+. Influenced by: JavaScript
+
+CORE TYPES
+---------------
+
+Number
+String
+Boolean
+
+TYPE INFERENCE
+---------------
+
+let data = "hello";   // then by default data is type of string
+data = 10; (syntax error)
+data = "hie";  (true)
+
+if we not assign any value at time of declaration then, after we assign any type of value
+
+let data;
+data = "hie";
+data = 10;
+data = true;
+
+we also assign a specific value type like we are not assign any value of same type also.
+
+let num:5;
+num = 10; (syntax error)
+num = 5;  (correct)
+
+let str:"hie";
+str = "hello"; (syntax error)
+str = "hie";  (correct)
+
+in let and const
+
+const val = 10;  (type of val is 10 because we not assign any other value)
+let val = 10;  (type of val is number)
+
+OBJECT TYPE
+------------
+// both are empty object
+let person:{};
+let person:object;
+
+// this is wrong way
+const person:{}={
+    name: "satyam",
+    age: 22
+}
+console.log(person.name);   // this is syntax error because person is empty object
+
+// this is correct way
+const person:{name:string, age:number}={
+   name: "satyam",
+   age: 22
+}
+console.log(person.name);
+
+ARRAY TYPE
+-----------
+
+let arr:string[] = ["php", "js", "ts", "node"];
+
+if limited values then,
+let random:[string, number, boolean] = ["abc", 123, true]; // this is tuple
+
+if many numbers of data then, both are correct
+let random = ["abc", 123, true, 23, false];
+let random:any[] = ["abc", 123, true, 23, false];
+
+TUPLE
+------
+
+let random1:[string, number, boolean] = ["abc", 123, true];
+
+let random2:[string, number, string, boolean?] = ["abc", 123, "hello"];
+// if we want to push new another type of value in random variable Then add in last type as well as questionMark
+random.push(true)
+random[0] = 12;   // at 0th position there is string so we can not assign a number value
+
+ENUM TYPE
+----------
+
+. A group of constant
+. That can assign a number to your string and make an easy comparison.
+. Ex:- enum Role[values]
+
+Ex: enum Role{
+    ADMIN,MANAGER,READ_ONLY_USER
+}
+console.log(Role.MANAGER);   // 1
+
+
+ANY TYPE
+----------
+
+the any type is a special type that allows a variable to hold any kind of value,
+
+let variable: any;
+
+variable = "Hello"; // string
+variable = 42;      // number
+variable = true;    // boolean
+variable = { name: "Alice" }; // object
+
+
+UNION TYPE
+-----------
+
+a union type allows a variable to hold a value of multiple types. You define a union type using the | (pipe) symbol between the types.
+
+Ex:-  function combine(a:number | string, b:number | string)
+      {
+         if(typeof a === 'number' && typeof b === 'number')
+         {
+           return a + b;
+         }
+         else
+         {
+           return a.toString()+b.toString();
+         }
+      }
+        console.log(combine(10,20));
+
+        console.log(combine("satyam","singh"));
+
+
+LITERAL TYPE
+-------------
+
+a literal is a specific value that you directly write in the code. Literals can be numbers, strings, booleans, or even more specific types.
+
+Ex: Let Data:"abc"|123="abc"
+
+Ex:-  function combines(a: number | string, b: number | string, type:"as-number" | "as-string")
+      {
+         if(type === "as-number")
+         {
+           return (+a)+(+b)
+         }
+         else
+         {
+           return a.toString() + b.toString();
+         }
+      }
+
+       console.log(combines(10,20,"as-number"))
+
+       console.log(combines("satyam","singh","as-string"))
+
+
+TYPE ALIAS
+------------
+
+a type alias is a way to create a new name for a type. This can make complex types easier to read and reuse. You define a type alias using the type 
+keyword followed by the alias name and then assign it a type.
+
+
+Ex: type varType = string | number | undefined;
+    let x: varType = 10;
+    let y: varType = 10;
+    let z: varType = 10;
+
+FUNCTION TYPE
+--------------
+
+a function type defines the type signature of a function, specifying the types of its parameters and the type of the value it returns.
+
+Ex: function add(a:number, b:number):number
+    {
+      return a+b;
+    }
+    add(10,20);
+
+Ex: const num = 10;
+    const str = "hello";
+    const cc = undefined;
+
+
+    function add():number
+    {
+         return num;
+      // return str;   syntax error
+    }
+
+    add()
+
+// que => can we a function of undefined types
+
+
+VOID FUNCTION
+---------------
+
+a void function is a function that does not return any value. It is specified by the void return type. When a function's return type is void, 
+it means that the function either does not use a return statement or uses it without returning any value
+
+Ex: function logMessage(message: string): void {
+      console.log(message);
+    }
+
+// but we dont need to write its void type when we not return anything the function take it default
+
+Ex: let today;
+
+    function printData()
+    {
+      today = 10*20*4;
+    }
+
+    printData();
+
+
+UNKNOWN TYPES
+---------------
+
+In TypeScript, unknown is a type that means "I don't know what this is yet." It can hold any value, but before you can use it, 
+you must first check what type it is. This is safer than any, which allows any operation without checks. unknown helps prevent errors 
+by making sure you handle values correctly
+
+
+Ex:-  
+
+// ---------  Diff between any and unkown  --------------
+
+
+// ------ ANY TYPE -------
+
+let data:any;
+data = 20;
+data = "hello";
+
+let item1:string;
+item1 = data;
+
+// type any is switched of the rules of typescript show that i can use any as i wish.
+
+
+// -------- UNKNOWN TYPE --------
+
+let data2:unknown;
+data2 = 20;
+data2 = "hello";
+
+let item2:string;
+// we cannot assign unkown type variable in others type variable directly there is some alternate options.
+// item2 = data2;   // this gives error because we cannot assig it directly
+
+// You must first check or assert the type
+if (typeof data2 === 'string') {
+    item2 = data2; // Now it's safe to assign
+  }
+  
+  // Alternatively, using a type assertion
+  item2 = data2 as string; // This will bypass the type checking, but be careful with it
+
+
+NEVER TYPE FUNCTION
+---------------------
+
+A never type in TypeScript is for functions that never finish, either because they throw an error or run forever. 
+A void type is for functions that finish but don’t return any value, just undefined.
+
+Ex:- 
+// it return true
+function tryReturn()
+{
+   return true;
+}  
+
+Ex:-
+// it return undefined known as void type function. (by default in any function when we return nothing it is void type)
+
+// it return 3 and undefined
+function tryReturn()
+{
+   console.log(1 + 2);
+}  
+
+Ex:-
+// it return nothing instead it is infinite loop or the function that is throw and error or messages.
+
+Ex:-
+function tryReturn(): never {
+    throw new Error("This function never returns");
+}
+
+console.log(tryReturn()); // This will throw an error and terminate execution.
+
+
+HOW TO CREATE tscconfig.json FILE
+-------------------------------------
+
+run=> tsc init   (this create file)
+
+for compile typescript in javascript => npx tsc
+
+for auto compile typescript to javascript => tsc -w or tsc --watch
+
+for compile typescript direct without converting in js => npx ts-node Folder_Name/File_Name.ts
+
+
+INCLUDE AND EXCLUDE in tsconfig.json
+--------------------------------------
+
+In tsconfig.json, the include and exclude options are used to control which files are included or excluded in the TypeScript compilation process.
+
+---include----
+include specifies an array of file patterns to include in the compilation process. Only the files that match these patterns will be compiled.
+
+Example:
+{
+  "include": ["src/**/*"]
+}
+// This example includes all files in the src directory and its subdirectories.
+
+
+---exclude----
+exclude specifies an array of file patterns to exclude from the compilation process. These files will not be compiled, even if they match 
+a pattern in the include array.
+
+Example:
+{
+  "exclude": ["node_modules", "**/*.spec.ts"]
+}
+
+
+When both include and exclude are used in tsconfig.json, TypeScript follows these rules:
+
+=> If neither include nor exclude is provided, TypeScript will automatically include all .ts files in the project folder, except for files in the 
+node_modules folder.
+
+=> If both are specified, TypeScript will only compile files that match the patterns in include, but it will ignore any files that also match the 
+patterns in exclude.
+
+In short, include defines what files to compile, and exclude defines what files to ignore, even if they were included.
+
+
+TARGET IN tsconfig.json
+-------------------------
+
+In a tsconfig.json file for TypeScript, the target option specifies the version of JavaScript that TypeScript should compile the code to.
+
+For example:
+
+"target": "ES5" will compile the TypeScript code to be compatible with ECMAScript 5 (ES5), which is widely supported by most browsers.
+"target": "ES6" (or ES2015) will compile the code to ECMAScript 6, which has more modern JavaScript features.
+
+Choosing the right target ensures your TypeScript code runs correctly on the environments you want to support 
+(like specific browsers or Node.js versions).
+
+
+rootDir and outDir in tsconfig.json
+-------------------------------------
+
+In a tsconfig.json file for a TypeScript project:
+
+rootDir: This specifies the root folder that contains the TypeScript source files (.ts files). It's the directory where TypeScript looks for the 
+source files to compile. For example, if rootDir is set to "src", TypeScript will consider all files inside the src folder as source files.
+
+outDir: This specifies the output directory where the compiled JavaScript files will be placed after TypeScript compiles the .ts files. 
+For example, if outDir is set to "dist", all compiled .js files will be placed in the dist folder.
+
+Together, rootDir and outDir help organize your TypeScript project by defining where the source files are located and where the compiled files should go.
+
+
+CODE QUALITY IMPROVEMENT OPTIONS
+----------------------------------
+
+there is some keys in tsconfig.json file in TYPESCRIPT
+
+
+Certainly! Here’s a brief summary of each TypeScript option:
+
+1. strict: Enables all strict type-checking options for better error catching and more reliable code.
+
+2. noImplicitAny: Forces you to explicitly declare types for variables and parameters to avoid unintended type errors.
+
+3. strictNullChecks: Differentiates between null, undefined, and other types to prevent runtime errors due to unexpected nullish values.
+
+4. noUnusedLocals: Flags errors for local variables that are declared but not used, helping to clean up unused code.
+
+5. noUnusedParameters: Flags errors for function parameters that are not used within the function, keeping function signatures clean.
+
+6. noImplicitReturns: Ensures that every code path in a function returns a value, helping to avoid bugs from missing returns.
+
+7. noFallthroughCasesInSwitch: Prevents fall-through in switch cases unless explicitly defined, reducing logical errors in switch statements.
+
+8. forceConsistentCasingInFileNames: Ensures file names are consistently cased in imports, avoiding issues in case-sensitive file systems.
+
+9. esModuleInterop: Improves compatibility with JavaScript modules, making imports from CommonJS modules smoother.
+
+10. strictFunctionTypes: Ensures function types are checked strictly to prevent errors in function arguments and return types.
+
+11. strictBindCallApply: Checks that bind, call, and apply methods are used with correct argument types.
+
+12. strictPropertyInitialization: Ensures all class properties are initialized properly.
+
+13. alwaysStrict: Forces strict mode for all files, catching errors early.
+
+
+
+
+CLASS IN TYPESCRIPT
+--------------------
+
+=> What is class
+
+. A class is a user-defined type that describes what a certain type of object ?
+. We can define property and methods in class?
+
+Ex: 
+class Users{
+   name:string = "";
+   email:string = "";
+
+   addUser(user:string): string
+   {
+     return `${user} is Added`
+   }
+   removeUser(user:string): string 
+   {
+     return `${user} is Removed`
+   }
+}
+
+let User1 = new Users;
+console.log(User1.addUser('Anil'));   // Anil is Added
+console.log(User1.removeUser("Anil"));  // Anil is Removed
+console.log(User1);    // Users {name: "", email: ""}
+console.log(Users);    // [class Users]
+
+
+ACCESS MODIFIERS
+-----------------
+access modifiers control the visibility of class members (properties or methods).
+ 
+There are three types:
+
+1. Public => Members are accessible everywhere (default).
+2. Private => Members are only accessible within the class.
+3. Protected => Members are accessible within the class and its subclasses.
+
+Example : 
+ Public => all methods and properties are accessible outside the class because it is public by default
+
+ class Users1{
+     name=""
+
+    setName(name:string)
+    {
+        this.name=name;
+    }
+    displayName()
+    {
+        console.log(this.name)
+    }
+}
+
+const u1 = new Users1;
+u1.setName("anil");
+u1.name = "sidhu";   
+u1.displayName();
+
+
+Example : 
+ Private => all methods and properties are only accessible within the class because using keyword private
+
+ class Users1{
+    private name=""
+
+    setName(name:string)
+    {
+        this.name=name;
+    }
+    displayName()
+    {
+        console.log(this.name)
+        this.getNameLength()
+    }
+    private getNameLength()
+    {
+        console.log(this.name.length)
+    }
+}
+
+const u1 = new Users1;
+u1.setName("satyam singh");
+// u1.name = "sidhu"; it is not accessible outside class because it is private
+u1.displayName();
+// u1.getNameLength(); it is also not accessible outside class because it is private
+
+Constructor and Shorthand Initialization
+-------------------------------------------
+=> a constructor is a special method in a class that is automatically called when an object of that class is created. It helps initialize 
+the properties of the class.
+
+Example => 
+class UsersConstruct{
+    name="";
+    age=0;
+    email=""
+    constructor(name:string, age:number, email:string)
+    {
+        // console.log("constructor called");
+        this.name=name;
+        this.age=age;
+        this.email=email;
+    }
+    displayVal()
+    {
+        console.log(this.name, this.age, this.email);
+    }
+}
+const ex = new UsersConstruct("satyam", 22, "satyam@gmail.com");
+const ex1 = new UsersConstruct("raj", 27, "raj@gmail.com");
+ex.displayVal();
+ex1.displayVal();
+
+---- Shorthand Initialization :=> 
+In TypeScript, instead of manually assigning properties inside the constructor, you can use shorthand initialization by declaring the 
+properties directly in the constructor parameters.
+
+Example => 
+class shortHand{
+    constructor(public name:string, public age:number, public email:string ){  }
+
+    displayValue(){
+        console.log(this.name, this.age, this.email);
+    }
+}
+
+const sh = new shortHand("satyam", 22, "satyam@123");
+const sh1 = new shortHand("raj", 27, "raj@gmail.com");
+
+sh.displayValue();
+sh1.displayValue();
+
+
+In this version:
+The public keyword automatically creates and initializes the property, making the code shorter and cleaner.
+
+
+Difference Between readonly and private
+-----------------------------------------
+=> readonly: Means you can set a value once, but after that, you can't change it.
+
+=> private: Means something is hidden from the outside. You can only use or change it inside the class.
+
+Example : 
+class Example{
+    readonly name='anil';
+    private age = 12;
+}
+
+const exa = new Example();
+// exa.name="peter";  it is readonly thats why i cannot update its value but i can access this property outside class
+// exa.age;  it is private thats why i cannot acess this property outside class and also cannot update itsvalue
+console.log(exa.name);
+// console.log(exa.age);
+
+
+Inheritance
+-------------
+Inheritance in TypeScript allows a class to inherit properties and methods from another class. This is useful for code reuse and 
+creating a hierarchy of classes.
+
+Here's a simple breakdown:
+
+Base Class/Parent Class: This is the class that provides common properties and methods.
+Derived Class/Child Class: This is the class that inherits from the base class and can use or override its properties and methods.
+
+Example =>
+class CreateAccount{
+    makeEmail(user:string)
+    {
+        return `${user}@test.com`
+    }
+}
+
+class User_s extends CreateAccount{
+    addUser(user:string){
+        return `${user} added as an User`;
+    }
+}
+
+const use1 = new User_s();
+console.log(use1.addUser("satyam"));
+console.log(use1.makeEmail("satyam"));
+
+
+class Employess extends CreateAccount{
+    addEmployee(emp:string)
+    {
+        return `${emp} is added as an employee`
+    }
+}
+
+const E1 = new Employess();
+console.log(E1.addEmployee("Sam"));
+console.log(E1.makeEmail("sam"));
